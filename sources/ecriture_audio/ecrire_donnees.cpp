@@ -1,4 +1,4 @@
-#include <parametre_audio.h>
+#include "parametre_audio.h"
 
 
 void ecrire_donnees_normalisees_WAV(FILE *fichier) {

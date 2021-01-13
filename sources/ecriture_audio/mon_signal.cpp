@@ -1,4 +1,4 @@
-#include <parametre_audio.h>
+#include "parametre_audio.h"
 
 
 void mon_signal(double t1, double t2, double f, double Amp) {

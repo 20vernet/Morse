@@ -1,4 +1,4 @@
-#include <parametre_audio.h>
+#include "parametre_audio.h"
 
 void ecrire_entete_WAV(FILE *fichier) {
     unsigned short int nb_canaux = 2 ;

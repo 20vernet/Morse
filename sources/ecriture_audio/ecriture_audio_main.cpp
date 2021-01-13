@@ -1,4 +1,4 @@
-#include <parametre_audio.h>
+#include "parametre_audio.h"
 
 
 void ecriture_audio(double ti, double tf){

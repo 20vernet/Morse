@@ -1,4 +1,4 @@
-#include <parametre_audio.h>
+#include "parametre_audio.h"
 
 void ecrire_little_endian(unsigned int octets, int taille, FILE *fichier) {
     unsigned char faible ;
