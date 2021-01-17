@@ -10,7 +10,8 @@
 
 unsigned int taux ;
 unsigned long int taille ;
-double *gauche, *droite ;
+double *gauche;
+//double *droite ;
 double duree ;
 
 void ecrire_little_endian(unsigned int octets, int taille, FILE *fichier) {
@@ -30,12 +31,12 @@ void ecrire_donnees_normalisees_WAV(FILE *fichier) {
 
     for (i = 0 ; i < taille ; i=i+1) {
         if (fabs(gauche[i]) > maxi) maxi = fabs(gauche[i]) ;
-        if (fabs(droite[i]) > maxi) maxi = fabs(droite[i]) ;
+        //if (fabs(droite[i]) > maxi) maxi = fabs(droite[i]) ;
     }
 
     for (i = 0 ; i < taille ; i=i+1) {
         ecrire_little_endian((int)(gauche[i]/maxi*AMPLITUDE_MAXI), 2, fichier) ;
-        ecrire_little_endian((int)(droite[i]/maxi*AMPLITUDE_MAXI), 2, fichier) ;
+        //ecrire_little_endian((int)(droite[i]/maxi*AMPLITUDE_MAXI), 2, fichier) ;
     }
 }
 
@@ -49,13 +50,13 @@ void mon_signal(double t1, double t2, double f, double Amp) {
 
     for (i=(unsigned int)(t1*taux) ; i<(unsigned int)(t2*taux) ; i=i+1) {
         gauche[i] = gauche[i] + Amp * sin(omega*t + phi) ;
-        droite[i] = droite[i] + Amp * sin(omega*t + phi) ;
+        //droite[i] = droite[i] + Amp * sin(omega*t + phi) ;
         t = t + dt ;
     }
 }
 
 void ecrire_entete_WAV(FILE *fichier) {
-    unsigned short int nb_canaux = 2 ;
+    unsigned short int nb_canaux = 1 ; //= 2 si on ajoute droite
     unsigned short int nb_bits = 16 ;
     taux = 44100 ; // En Hz
     //duree est définie après la génération des tableaux gauche et droit dans son (codage)
@@ -63,7 +64,7 @@ void ecrire_entete_WAV(FILE *fichier) {
     unsigned long int nb_octets_donnees = (nb_bits / 8) * nb_canaux * taille ;
 
     gauche = (double*) calloc(taille, sizeof(double)) ;
-    droite = (double*) calloc(taille, sizeof(double)) ;
+    //droite = (double*) calloc(taille, sizeof(double)) ;
 
     fwrite("RIFF", 4, 1, fichier) ;
     ecrire_little_endian(36 + nb_octets_donnees, 4, fichier) ;
