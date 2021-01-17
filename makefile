@@ -2,24 +2,31 @@ CXX=g++
 CXXFLAGS=-Wall -ggdb -Iinclude
 AR=/usr/bin/ar -r 
 
+src := $(wildcard sources/*.cpp)
+obj := $(subst src, build, $(src:.cpp=.o))
 
 
-sources:=sources/
-obj := $(sources:.cpp=.o)
+.PHONY: directories
 
-
-
-all: morse
+all: directories libmorse.a morse 
 	@echo $(obj)
 
-snake: main.cpp libmorse.a
+morse: main.cpp libmorse.a
 	$(CXX) $(CXXFLAGS) $^ -o $@ 
 
-libsnake.a: ${obj}
+libmorse.a: ${obj}
 	${AR} $@ $^
 
+build/%.o: src/%.cpp include/%.h
+	$(CXX) $(CXXFLAGS) -o $@ -c $<
+
+
+directories: build
+build:
+	mkdir -p $@
 
 
 clean: 
 	rm morse
 	rm libmorse.a
+	rm -r build
