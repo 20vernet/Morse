@@ -1,6 +1,6 @@
 #include <iostream>
 #include "code_morse.h"
-//#include "decode_morse.h"
+#include "decode_morse.h"
 
 int main(){
     int quoi;
@@ -9,8 +9,8 @@ int main(){
     if(quoi == 1){
         code_morse();
     }
-    //if(quoi == 2){
-    //    decode_morse();
-    //}
+    if(quoi == 2){
+        decode_morse();
+    }
 
 }
