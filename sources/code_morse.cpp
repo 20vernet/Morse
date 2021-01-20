@@ -39,7 +39,7 @@ void code_morse(){
     int length = text.length();
 
     int code[length*4] = {0};
-    //transformadureon chaine de caractère en tableau d'entier avec le dico
+    //transformation chaine de caractère en tableau d'entier avec le dico
 
    
     transform_int(text, code, length);
@@ -60,6 +60,6 @@ void code_morse(){
     fclose(fichier_wav);
 
     free(gauche);
-    free(droite);
+    //free(droite);
 }
 
