@@ -9,7 +9,7 @@ void transform_int(std::string text, int* code, int length){
     int ind_int = 0;
 
      //dico
-    fr_to_morse[','] = " ";
+    fr_to_morse[' '] = " ";
     fr_to_morse['A'] = ".-";
     fr_to_morse['B'] = "-...";
     fr_to_morse['C'] = "-.-.";
