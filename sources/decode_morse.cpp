@@ -7,10 +7,11 @@
 
 void decode_morse(){
     //récupérer l'emplacement du fichier (texte) à lire
-    std::string empl;
-    std::cout<<"Chemin du fichier : "<<std::endl;
-    std::cin>>empl;
-
+    std::string empl = lecture();
+    
+    // empl est l'adresse du fichier texte pour le décodeur
+    // Il est générer par la fonction lecture à partir d'un fichier audio
+    
     //ouverture du fichier
     std::ifstream fichier_lu (empl);
 
