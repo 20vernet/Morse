@@ -2,13 +2,18 @@
 #include <map>
 #include <string>
 
+// Définition du dictionnaire
 std::map<char, std::string> fr_to_morse;
 
+// Cette fonction transforme la chaîne de caractère à coder
+// En un tableau d'entiers représentant la durée du son ou du blanc
+// Les morceau de son sont représentés par des entiers positifs
+// Les morceaux de blanc sont représentés par des entiers négatifs
 
 void transform_int(std::string text, int* code, int length){
     int ind_int = 0;
 
-     //dico
+    // Dictionnaire
     fr_to_morse[' '] = " ";
     fr_to_morse['A'] = ".-";
     fr_to_morse['B'] = "-...";
@@ -36,9 +41,9 @@ void transform_int(std::string text, int* code, int length){
     fr_to_morse['X'] = "-..-";
     fr_to_morse['Y'] = "-.--";
     fr_to_morse['Z'] = "--..";
-    //fin dico
+    // Fin du dictionnaire
     
-     
+    // Parcours de la chaîne de caractère à coder
     for(int i = 0; i < length; i+=1){
         
         char let = text[i];
@@ -46,11 +51,12 @@ void transform_int(std::string text, int* code, int length){
 
         int lon = letter.length();
 
-      
+        // Parcours de la lettre morse pour écrire les différents poids de chaque carctère
+        // Dans le tableau d'entiers
         for(int k = 0; k < lon; k+=1){
         
             if(letter[k] == ' '){
-                code[ind_int + k] = -4; //normalment -7, mais on mais -3 après chaque lettre
+                code[ind_int + k] = -4; // Normalment -7, mais on mais -3 après chaque lettre
             }
             else if(letter[k] == '.'){
                 code[ind_int + k] = 1;
@@ -61,11 +67,11 @@ void transform_int(std::string text, int* code, int length){
         
 
         }
-        //on a mis une lettre, on ajoute l'espace de -1-2 pour signifier la fin de la lettre (car on ajoute -1
-        //à chaque symbole mis en audio)
+        // On a mis une lettre, on ajoute l'espace de -2 pour signifier la fin de la lettre 
+        // (car on ajoute -1 à chaque symbole mis en audio)
         code[ind_int + lon] = -2;
 
-        //on passe à la lettre suivante
+        // On passe à la lettre suivante pour le tableau d'entiers
         ind_int = ind_int + lon + 1;
     }
 }

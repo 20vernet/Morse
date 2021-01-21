@@ -4,8 +4,9 @@
 
 
 
-
 std::string lecture(){
+
+    // Ouverture du fichier audio en mode lecture binaire
     std::ifstream myfile;
     std::string chemin;
     std::cout<<"Chemin de l'audio :"<<std::endl;
@@ -15,12 +16,14 @@ std::string lecture(){
     unsigned long int size = myfile.tellg();
     char header[44];
     int t;
-    int pas = 8850; // Nombre d'échantillons pour dt = 0.2
+
+    // Nombre d'échantillon pour dt = 0.2s
+    int pas = 8820;
     
 
     myfile.seekg(0, std::ios::beg);
     myfile.read(header, 44);
-    unsigned long int longueur = (size-44)/2 -100; //Pour être sur de ne pas avoir de problèmes....
+    unsigned long int longueur = (size-44)/2 -100; //Pour être sur de ne pas avoir de problèmes de taille
     int* suite;
 
     suite = (int*) calloc(longueur + 2*pas, sizeof(int)) ;
@@ -54,23 +57,22 @@ std::string lecture(){
 
     // Parcour des données pour connaître ce qui est codé
 
-
+    // Création d'un fichier texte pour accueillir le texte en morse
     std::ofstream fichier_ecrit ("texte_morse.txt");
 
     unsigned long int i = 0;
     while(i<longueur/10 +1){
-    //for(int k = 0; k<10; k+=1){
         if(blanc[i] == 1){
             // On est dans un son
             int temps = 0; 
 
             while(blanc[i] == 1){
-                // On compte le nombre de dizaine d'échantillpon de son
+                // On compte le nombre de dizaine d'échantillon de son
                 temps += 1;
                 i = i+1;
             }
 
-            // Le nombre d'échantillon de son paut être 1 pas ou 3 pas
+            // Le nombre d'échantillon de son peut être 1 pas ou 3 pas
             if(temps == 882){
                 // On a un point
                 fichier_ecrit << ".";
@@ -107,7 +109,7 @@ std::string lecture(){
             }
 
             // Si on ne vérifie aucune de ces deux conditions, c'est un blanc inter caractère
-            // on ne fait rien
+            // On ne fait rien
 
             
         }
@@ -122,6 +124,7 @@ std::string lecture(){
 
     fichier_ecrit.close();
 
+    // On renvoie l'adresse du fichier texte créé contenant le texte en morse
     return "texte_morse.txt";
 }
 
