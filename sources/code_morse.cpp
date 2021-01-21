@@ -5,24 +5,30 @@
 
 
 
-//ecriture du son
+// Ecriture du son
 void son(int*code, int length, double dt){
     
+    // Définition du temps initial
     double ti = 0;
     
 
     for(int i = 0; i < length; i+=1){
         
         if(code[i]>0){
+            // Dans ce cas, on a la durée du son (1 pour un . et 3 pour un -)
             int val = code[i];
             double tf = ti + dt*val;
 
+            // On écrit une sinusoïde de durée dt ou 3*dt
             mon_signal(ti, tf, 440, 1.0);
 
-            ti = ti + (val+1)*dt; //on ajoute le blanc après chaque point ou trait d'un même caractère
+            // On ajoute le blanc après chaque point ou trait d'un même caractère
+            ti = ti + (val+1)*dt; 
         }
 
         if(code[i]<0){
+            // Dans ce cas, on a un blanc.
+            // On incrémente juste la position du temps initial en fonction de la durée du blanc
             ti = ti - code[i]*dt;
         }
         
@@ -34,35 +40,40 @@ void son(int*code, int length, double dt){
 
 
 void code_morse(){
+
+    // On demande à l'utilisateur l'adresse du fichier texte à coder
+
     std::string chemin;
-    std::cout<<"Votre texte (chemin): "<<std::endl;
+    std::cout<<"Chemin du texte à coder : "<<std::endl;
     std::cin>>chemin;
     
 
-    //ouverture du fichier
+    // Ouverture du fichier
     std::ifstream fichier_lu (chemin);
 
-    //lecture du fichier
+    // Lecture du fichier
     std::string text;
     std::getline(fichier_lu, text);
+
+    // Longueur de la chaîne de caractère à coder
     int lon = text.length();
     
-
+    // Fermeture du fichier
     fichier_lu.close();
 
+    // Transformation de la chaine de caractère en tableau d'entiers avec le dictionnaire fr_to_morse
     int code[lon*4] = {0};
-    //transformation chaine de caractère en tableau d'entier avec le dico
-
    
     transform_int(text, code, lon);
 
-    double dt = 0.2; //durée d'un pas de temps en seconde (de la taille d'un point)
+    // Durée d'un pas de temps en seconde (de la taille d'un point)
+    double dt = 0.2; 
 
-    //calcul de la durée du signal audio
+    // Calcul de la durée du signal audio
 
     duree = calcul_duree(code, lon*4, dt);
         
-    //écriture de l'audio
+    // Ecriture de l'audio
     FILE *fichier_wav = fopen("morse.wav", "wb");
     ecrire_entete_WAV(fichier_wav);
 
@@ -72,6 +83,5 @@ void code_morse(){
     fclose(fichier_wav);
 
     free(gauche);
-    //free(droite);
 }
 

@@ -1,6 +1,6 @@
 double calcul_duree(int*code, int length, double dt){
     
-    //calculer la durée du signal max
+    // Calcule de la durée du signal
     double dure = 0;
     
 
@@ -9,7 +9,8 @@ double calcul_duree(int*code, int length, double dt){
         if(code[i]>0){
             int val = code[i];
 
-            dure = dure + (val+1)*dt; //on ajoute le blanc après chaque point ou trait d'un même caractère
+            // On ajoute le blanc après chaque point ou trait d'un même caractère
+            dure = dure + (val+1)*dt; 
         }
 
         if(code[i]<0){

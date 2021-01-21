@@ -4,6 +4,7 @@
 #include <string>
 #include <map>
 
+
 std::map<std::string, char> morse_to_fr;
 
 void ecrire_fichier(std::string* separe, int lon_message){
