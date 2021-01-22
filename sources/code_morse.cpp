@@ -51,37 +51,44 @@ void code_morse(){
     // Ouverture du fichier
     std::ifstream fichier_lu (chemin);
 
-    // Lecture du fichier
-    std::string text;
-    std::getline(fichier_lu, text);
+    if(fichier_lu.is_open()){
 
-    // Longueur de la chaîne de caractère à coder
-    int lon = text.length();
+        // Lecture du fichier
+        std::string text;
+        std::getline(fichier_lu, text);
+
+        // Longueur de la chaîne de caractère à coder
+        int lon = text.length();
     
-    // Fermeture du fichier
-    fichier_lu.close();
+        // Fermeture du fichier
+        fichier_lu.close();
 
-    // Transformation de la chaine de caractère en tableau d'entiers avec le dictionnaire fr_to_morse
-    int code[lon*4] = {0};
+        // Transformation de la chaine de caractère en tableau d'entiers avec le dictionnaire fr_to_morse
+        int code[lon*4] = {0};
    
-    transform_int(text, code, lon);
+        transform_int(text, code, lon);
 
-    // Durée d'un pas de temps en seconde (de la taille d'un point)
-    double dt = 0.2; 
+        // Durée d'un pas de temps en seconde (de la taille d'un point)
+        double dt = 0.2; 
 
-    // Calcul de la durée du signal audio
+        // Calcul de la durée du signal audio
 
-    duree = calcul_duree(code, lon*4, dt);
+        duree = calcul_duree(code, lon*4, dt);
         
-    // Ecriture de l'audio
-    FILE *fichier_wav = fopen("morse.wav", "wb");
-    ecrire_entete_WAV(fichier_wav);
+        // Ecriture de l'audio
+        FILE *fichier_wav = fopen("morse.wav", "wb");
+        ecrire_entete_WAV(fichier_wav);
 
-    son(code, lon*4, dt);
+        son(code, lon*4, dt);
 
-    ecrire_donnees_normalisees_WAV(fichier_wav);
-    fclose(fichier_wav);
+        ecrire_donnees_normalisees_WAV(fichier_wav);
+        fclose(fichier_wav);
 
-    free(gauche);
+        free(gauche);
+    }
+
+    else{
+        std::cout<<"Le fichier texte n'existe pas"<<std::endl;
+    }
 }
 
