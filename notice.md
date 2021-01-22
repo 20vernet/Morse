@@ -20,8 +20,9 @@ Plusieurs exemples de fichiers *.txt* à coder et du fichier *.wav* qui lui est 
 - Le décodeur se lance et vous demande le chemin du fichier *.wav* à décoder,
 - Le fichier à décoder doit :
   - Etre un fichier audio *.wav*,
-  - Avoir été codé avec le codeur,
+  - **Avoir été codé avec le codeur**,
 - Le décodeur retourne un fichier *decode.txt* avec le texte décodé en majuscules. Il retourne aussi un fichier *texte_morse.txt* contenant le code morse de l'audio transcrit en - et . par le programme.
   
 Plusieurs exemples de fichiers *.wav* à décoder et du fichier *.txt* qui lui est associé sont dans le dossier **Exemples_decodage**.
 
+Je précise que le décodeur à été conçu en supposant que les fichiers *.wav* à décoder ont été codés avec le codeur (dans le but de faciliter la lecture des fichiers audios). Il ne fonctionne donc à priori pas avec d'autres fichiers audios (je n'ai pas tester, mais au vue de la méthode de lecture, ça ne doit pas marcher).
